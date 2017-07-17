@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>calc</title>
+		<link href="style.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div class="view">
+			<label id="numer_input_1" style="margin-top: 50px;"></label><br><br><br><br><br><br>
+			<label id="numer_input_2" ></label>
+		</div>
+		<div class="number_container">
+			<input type="button" name="" value="C" class="_24_percent light_blue num" style="border: 0; margin-top: 3.5%">
+			<input type="button" name="" value="( )" class="_24_percent light_blue num" style="border: 0; margin-top: 3.5%" disabled>
+			<input type="button" name="" value="%" class="_24_percent light_blue num" style="border: 0; margin-top: 3.5%" disabled>
+			<input type="button" name="" value="/" class="_24_percent light_blue num" style="border: 0; margin-top: 3.5%"">
+
+
+			<input type="button" name="" value="7" class="_24_percent num" style="border: 0;">
+			<input type="button" name="" value="8" class="_24_percent num" style="border: 0;">
+			<input type="button" name="" value="9" class="_24_percent num" style="border: 0;">
+			<input type="button" name="" value="*" class="_24_percent num light_blue" style="border: 0;">
+
+			<input type="button" name="" value="4" class="_24_percent num" style="border: 0;">
+			<input type="button" name="" value="5" class="_24_percent num" style="border: 0;">
+			<input type="button" name="" value="6" class="_24_percent num" style="border: 0;">
+			<input type="button" name="" value="-" class="_24_percent num light_blue" style="border: 0;">
+
+			<input type="button" name="" value="1" class="_24_percent num" style="border: 0;">
+			<input type="button" name="" value="2" class="_24_percent num" style="border: 0;">
+			<input type="button" name="" value="3" class="_24_percent num" style="border: 0;">
+			<input type="button" name="" value="+" class="_24_percent num light_blue" style="border: 0;">
+
+			<input type="button" name="" value="." class="_24_percent num light_blue" style="border: 0;">
+			<input type="button" name="" id="0" value="0" class="_24_percent num" style="border: 0;">
+			<input type="button" name="" value="-/+" class="_24_percent num light_blue" style="border: 0;" disabled>
+			<input type="button" name="" value="=" class="_24_percent num green" style="border: 0;">
+			
+		</div>
+
+		<script src="jquery.min.js"></script>
+		<script type="text/javascript">
+			$( "._24_percent" )
+			  .mouseup(function() {//.text()
+			    $( this ).removeClass('pressed');
+			  })
+			  .mousedown(function() {
+			    $( this ).addClass('pressed');
+			    var input = $("#numer_input_2").text();
+			    check_operation(input, $( this ).val());
+			    //console.log(input);
+			    $("#numer_input").text(input);
+			});
+		</script>
+
+		<script type="text/javascript">
+			function check_operation(input_var, button) {
+				if (button == "C") {
+					$("#numer_input_2").text("");
+					$("#numer_input_1").text("");
+				}else if (button == "=") {
+					var sec_val = input_var;
+					if ($("#numer_input_1").text().length>1) {
+						$("#numer_input_1").text($("#numer_input_1").text()+'+'+input_var)
+					} else {
+						$("#numer_input_1").text(input_var);
+					}
+					$("#numer_input_2").text('');
+					answer();
+				}//else if (button == "+") {
+				//	var sec_val = input_var;
+				//	if ($("#numer_input_1").text().length>1) {
+				//		$("#numer_input_1").text($("#numer_input_1").text()+'+'+input_var)
+				//	} else {
+				//		$("#numer_input_1").text(input_var);
+				//	}
+				//	$("#numer_input_2").text('');
+				//}
+				else{
+					var input = input_var+button;
+					$("#numer_input_2").text(input);
+				}
+			}
+			function answer() {
+				var equals = eval($("#numer_input_1").text());
+				$("#numer_input_2").text(equals);
+				$("#numer_input_1").text("");
+			}
+		</script>
+	</body>
+</html>
